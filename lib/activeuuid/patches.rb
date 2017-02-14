@@ -72,7 +72,7 @@ module ActiveUUID
           original_simplified_type(field_type)
         end
 
-        alias_method_chain :type_cast_from_database, :uuid
+        alias_method_chain :type_cast, :uuid
         alias_method_chain :type_cast_code, :uuid if ActiveRecord::VERSION::MAJOR < 4
         alias_method_chain :simplified_type, :uuid
       end
