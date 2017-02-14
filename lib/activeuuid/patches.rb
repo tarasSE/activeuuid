@@ -63,14 +63,14 @@ module ActiveUUID
           simplified_type_without_uuid(field_type)
         end
         
-        def type_cast(value)
-          UUIDTools::UUID.serialize(value) if value
-        end
+#         def type_cast(value)
+#           UUIDTools::UUID.serialize(value) if value
+#         end
         
-        def simplified_type(field_type)
-          return :uuid if field_type == 'binary(16)' || field_type == 'binary(16,0)'
-          original_simplified_type(field_type)
-        end
+#         def simplified_type(field_type)
+#           return :uuid if field_type == 'binary(16)' || field_type == 'binary(16,0)'
+#           original_simplified_type(field_type)
+#         end
 
         alias_method_chain :type_cast, :uuid
         alias_method_chain :type_cast_code, :uuid if ActiveRecord::VERSION::MAJOR < 4
