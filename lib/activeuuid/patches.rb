@@ -62,6 +62,10 @@ module ActiveUUID
           return :uuid if field_type == 'binary(16)' || field_type == 'binary(16,0)'
           simplified_type_without_uuid(field_type)
         end
+        
+        def type_cast
+          return :uuid
+        end
 
         alias_method_chain :type_cast, :uuid
         alias_method_chain :type_cast_code, :uuid if ActiveRecord::VERSION::MAJOR < 4
