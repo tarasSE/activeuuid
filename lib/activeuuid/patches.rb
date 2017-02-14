@@ -63,9 +63,10 @@ module ActiveUUID
           simplified_type_without_uuid(field_type)
         end
         
-#         def type_cast(value)
-#           UUIDTools::UUID.serialize(value) if value
-#         end
+        def type_cast(value)
+          UUIDTools::UUID.serialize(value) if value && value.is_a? String
+          value.to_s if value && value.is_a? UUIDTools::UUID
+        end
         
 #         def simplified_type(field_type)
 #           return :uuid if field_type == 'binary(16)' || field_type == 'binary(16,0)'
