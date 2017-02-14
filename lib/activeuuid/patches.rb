@@ -64,8 +64,7 @@ module ActiveUUID
         end
         
         def type_cast(value)
-          UUIDTools::UUID.serialize(value) if value && value.is_a? String
-          value.to_s if value && value.is_a? UUIDTools::UUID
+          type_cast_with_uuid(value)
         end
         
 #         def simplified_type(field_type)
