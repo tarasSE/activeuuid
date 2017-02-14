@@ -66,6 +66,10 @@ module ActiveUUID
         def type_cast
           return :uuid
         end
+        
+        def simplified_type
+          return :uuid
+        end
 
         alias_method_chain :type_cast, :uuid
         alias_method_chain :type_cast_code, :uuid if ActiveRecord::VERSION::MAJOR < 4
