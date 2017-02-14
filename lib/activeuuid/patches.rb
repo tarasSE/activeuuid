@@ -63,12 +63,13 @@ module ActiveUUID
           simplified_type_without_uuid(field_type)
         end
         
-        def type_cast
-          return :uuid
+        def type_cast(value)
+          type_cast_with_uuid(value)
         end
         
-        def simplified_type
-          return :uuid
+        def simplified_type(field_type)
+          return :uuid if field_type == 'binary(16)' || field_type == 'binary(16,0)'
+          original_simplified_type(field_type)
         end
 
         alias_method_chain :type_cast, :uuid
