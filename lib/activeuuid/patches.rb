@@ -67,10 +67,32 @@ module ActiveUUID
           type_cast_with_uuid(value)
         end
         
-#         def simplified_type(field_type)
-#           return :uuid if field_type == 'binary(16)' || field_type == 'binary(16,0)'
-#           original_simplified_type(field_type)
-#         end
+        def simplified_type(field_type)
+          case field_type
+            when /int/i
+              :integer
+            when /float|double/i
+              :float
+            when /decimal|numeric|number/i
+              extract_scale(field_type) == 0 ? :integer : :decimal
+            when /datetime/i
+              :datetime
+            when /timestamp/i
+              :timestamp
+            when /time/i
+              :time
+            when /date/i
+              :date
+            when /clob/i, /text/i
+              :text
+            when /blob/i, /binary/i
+              :binary
+            when /char/i, /string/i
+              :string
+            when /boolean/i
+              :boolean
+          end
+        end
 
         alias_method_chain :type_cast, :uuid
         alias_method_chain :type_cast_code, :uuid if ActiveRecord::VERSION::MAJOR < 4
